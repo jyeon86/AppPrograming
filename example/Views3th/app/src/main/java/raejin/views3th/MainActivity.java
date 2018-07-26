@@ -1,5 +1,7 @@
 package raejin.views3th;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,11 +22,49 @@ public class MainActivity extends AppCompatActivity {
     ListView listView_basic, listView_custom;
     ArrayAdapter arrayAdapter;
     ArrayList<Listview_Item_Type1> data_list;
+    Button button_call;
+    ProgressBar progressBar_circle;
+    Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progressBar_circle = (ProgressBar)findViewById(R.id.progressBar_circle);
+        button_call = (Button)findViewById(R.id.button_callSub);
+        button2 = (Button)findViewById(R.id.button_callSub);
+        button_call.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //객체를 화면에 나타내려면 setVisiblity()함수를 쓴다.
+                // 매개변수는 View.Visible, View.INVISIBLE(안보임)
+                //View.GONE은 공간을 차지하지않고 완전히 숨김.
+                progressBar_circle.setVisibility(View.VISIBLE);
+                progressBar_circle.onClick(button2).setVisibility(View.GONE);
+                //다른 엑티비티로 이동하는 방법
+                //1. 인텐트(도로x,택배o) 객체를 만든다.
+                // 인텐트 객체 만들 때 필요한 2가지는 MainActiviriy의 정보 = MainActivity.this
+                //SubActivity.class
+
+           //     Intent intent = new Intent(MainActivity.this, SubActivity.class);
+
+
+                //2. startActiviry()함수로 액티비티를 이동한다.
+             //   startActivity(intent);
+
+                /*인텐트의 다른 쓰임새 1 > 웹페이지 보이기
+Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://naver.com"));
+//*/
+                /* 2>전화걸기
+Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:010-1234-5678"));
+startActivity(intent);
+//*/
+               //* 3>지도보기
+Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:36.6349120, 127.48689820"));
+startActivity(intent);
+//*/
+            }
+        });
 
         final String[] list = {
                 "이순신", "광개토대왕", "신사임당", "세종대왕",
